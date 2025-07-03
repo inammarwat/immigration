@@ -12,5 +12,5 @@ library(tidyverse)
 library(primer.data)
 ```
 
-Attitudes toward immigration are an increasingly important part of US congressional elections. Using data from a 2012 experiment among Boston commuters, we seek to explore the causal effect of exposure to Spanish speakers on attitudes toward immigration among registered voters in Georgia today.
+Attitudes toward immigration are an increasingly important part of US congressional elections. Using data from a 2012 experiment among Boston commuters, we seek to explore the causal effect of exposure to Spanish speakers on attitudes toward immigration among registered voters in Georgia today. However, the relationship between exposure and attitudes may have changed since 2012, which could make our model less stable or accurate for today’s population.
 
