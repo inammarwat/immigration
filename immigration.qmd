@@ -10,7 +10,51 @@ execute:
 #| message: false
 library(tidyverse)
 library(primer.data)
+library(tidymodels)
+library(broom)
+library(gt)
 ```
 
 Attitudes toward immigration are an increasingly important part of US congressional elections. Using data from a 2012 experiment among Boston commuters, we seek to explore the causal effect of exposure to Spanish speakers on attitudes toward immigration among registered voters in Georgia today. However, the relationship between exposure and attitudes may have changed since 2012, which could make our model less stable or accurate for today’s population.
+We model immigration attitudes, measured on a scale from 3 to 15, as a linear function of exposure to Spanish speakers.
 
+$$
+\begin{aligned}
+\text{att\_end}_i &= \beta_0 + \beta_1 \cdot \text{treatmentTreated}_i + \epsilon_i \\
+\epsilon_i &\sim \mathcal{N}(0, \sigma^2)
+\end{aligned}
+$$
+
+$$
+\widehat{\text{att\_end}} \;=\; 7.40 \;-\; 1.20 \,\text{treatment}_{\text{Treated}}
+$$
+
+```{r}
+#| cache: true
+
+fit_att <- linear_reg() %>%
+  fit(att_end ~ treatment, data = trains)
+```
+
+```{r}
+#| label: model-table
+#| cache: true
+#| message: false
+#| warning: false
+
+# Clean tidy model output with confidence intervals
+tidy(fit_att, conf.int = TRUE) |>
+  select(term, estimate, conf.low, conf.high) |>
+  mutate(across(where(is.numeric), round, 2)) |>
+  gt() |>
+  tab_header(
+    title = "Estimated Effects from Linear Model",
+    subtitle = "att_end ~ treatment"
+  ) |>
+  cols_label(
+    term = "Variable",
+    estimate = "Estimate",
+    conf.low = "Lower 95% CI",
+    conf.high = "Upper 95% CI"
+  )
+```
