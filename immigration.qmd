@@ -1,6 +1,16 @@
 ---
 title: "Attitudes Toward Immigration"
-author: : "Inam Khan"
+author: "Inam Khan"
 format: html
+execute: 
+  cache: false
 ---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(primer.data)
+```
+
+Attitudes toward immigration are an increasingly important part of US congressional elections. Using data from a 2012 experiment among Boston commuters, we seek to explore the causal effect of exposure to Spanish speakers on attitudes toward immigration among registered voters in Georgia today.
 
